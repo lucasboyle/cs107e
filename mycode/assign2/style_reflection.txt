@@ -1,0 +1,27 @@
+Lucas Boyle
+CS 107E
+1/24/26
+
+File: style_reflection.txt
+----------
+
+1. Using the blinking LED allows us to see low-level bugs in the code that we are not yet able to 
+   print out messages to state. Additionally, setting and reading a specific GPIO value also allows
+   us to see the actual outcome of the function call if we connected an LED to the correct GPIO
+   pin. Finally, the gpio_set_function does not return any values, so a traditional check to see
+   if it results in a predetermined value would not work for this. 
+
+2. I have no global variables in my code, only global constants. I have constants to hold the 
+   number of segments, number of digits, GPIO pins for the segments/digits/buttons, and a constant
+   to hold an array of the char representations of the different numbers. I also made all of these
+   constants static since their use is confined to clock.c. 
+
+3. I feel really good about my level of decomposition in both clock.c and gpio.c. In clock.c, I 
+   implemented functions that do every individual task that main() would need to call. This 
+   decomposition also helped me to tests smaller functionality as I built it. For example, 
+   building the function for display_digit() on line 76 helped me to verify that I could 
+   display a specific number on a specific digit before I worked on implementing all four digits. 
+   One thing that I think could be improved is when I make a mask to apply a certain function/value
+   on a GPIO pin. It could probably be cleaned up a bit or possibly decomposed since it is used 
+   twice. Overall, I think I did a good job with my style, ensuring that every function does 
+   exactly one task and calls upon other functions when needed. 

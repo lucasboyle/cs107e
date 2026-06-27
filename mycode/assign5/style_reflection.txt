@@ -1,0 +1,70 @@
+Lucas Boyle
+CS 107e
+2/15/26
+
+File: style_reflection.txt
+----------
+
+1. Character Handling: okay (could use more helper functions)
+   Number Processing: okay (processing left -> right)
+   Code Unification: great
+   Code Reuse (strlcat): great
+   Code Reuse (snprintf): great
+
+
+2. I used tests that had more padding than the charatcers that would be  
+   written, less padding than characters already written, and more padding 
+   than the buffersize. The combination of all of these tests covers
+   any situation that padding could be used in. 
+
+   Testing for malloc works a bit differently. We aren't directly comparing two 
+   strings anymore, we instead need to verify that we are using memory safely and 
+   managing it properly. To account for this, most of my tests in malloc require
+   manual inspection, using the heap_dump() function to inspect the headers in 
+   the heap. Additionally, memory in the heap is dynamic, so memory could be freed
+   and written over, which does not have to be accounted for by printf in the stack.
+
+   One direct example is testing a string that had memory allocated, freed, and then 
+   allocated over again in the heap. It would not be useful to test the contents of 
+   this string directly since its contents are now different. Intead, it would be
+   better to look at the behavior of the heap in between each call and inspect to
+   see if the behavior is the same as expected. Different expectations are set for 
+   printf and malloc: one is directly comparing contents, while the other is testing
+   for behavior. 
+
+
+3. One clear box test that I used to test malloc recycling was to allocate 32
+   bytes, free it, and then allocate 8 bytes. Since I know the size of the header,
+   I am able to not only test that there is an 8 byte block at the beginning, but
+   also a 16 block byte after it. This would not be possible without knowing the 
+   size of the header I created in the program. However, if I had a misconception 
+   about how splitting should work, then I could be forcing my functionality to fit 
+   this test. Another test that I would add for confident converage would be to allocate
+   a lot of memory in a previously used large space and doing a heap_dump(), allowing me
+   to see if recycling took place in general rather than having specifics hammered down.
+
+
+4. Block not aligned: the program does a modulus operation between the block and the 
+                      ALIGNMENT constant, ensuring that the remainder is zero.
+    
+   Block outside heap: the program checks to see if the block start is before the start
+                       of the heap or if the end of the block is past the end of the heap,
+                       reporting a problem if either condition is met.
+    
+   Overlapping blocks: the problem loops through each block in the heap, checking to
+                       see if any of the bounds above or below the current block are 
+                       intersecting. 
+
+   Invalid payloads: the program converts the size of the payload to bits and loops
+                     through the entire payload, ensuring that the size matches what
+                     actually exists in the cooresponding spot in memory. 
+
+
+5. One bug that heap_dump() helped me to catch was when I was implementing the split 
+   functionality. I was having an issue where my program would throw an error when I 
+   tried to allocate two pieces of memory that should both fit in the same old piece
+   of memory. When I used the heap_dump(), it showed me that I was putting the new 
+   header in the wrong location in memory, offset by eight bytes. This tool was super
+   useful in helping me realize this, and it probably would have been much more difficult
+   to find this bug without it. 
+    

@@ -1,0 +1,38 @@
+Lucas Boyle
+CS 107E
+1/16/26
+
+File: style_reflection.txt
+----------
+
+1. I put a good deal of importance on my programming style. When I took CS classes in high
+   school, my teacher put a great deal of emphasis on developing your own unique style, and 
+   I carried that through into CS 106B and in my other projects. I think I pay special 
+   attention to the way that I comment my code (I really like certain spacing and line lengths) 
+   and how consice my code is. As a section leader, I have now seen a lot of different ways 
+   that students approach their style, and it is useful to see the cool things that some
+   people do (and the bad things that others do). One especially memorable moment is when
+   I was grading one of my sectionee's assignments and they had adopted my commenting style
+   that I had showed in section. 
+
+2. One point that I thought was cool in the CMU guide was to put the units in the variable name
+   if it applies. I also thought it was interesting that the guide says to put () next to 
+   function names, but separated by a space next to keywords. In the Google guide, I thought
+   it was interesting that it says to always use spaces, not tabs. I think that out of these 
+   interesting finds, I will adopt the spacing one. 
+
+3. It ensures that when someone adds a line of code later there are already braces and they 
+   don't forget to add them. It also provides a more consistent look.
+
+4. Thinking back to 106B, I think that the solution to the Banzhaf Power Index problem
+   was really great C++ code. Not only did it have a sleek backtracking solution, but 
+   it was also well documented with inline comments that made the difficult concpets
+   more understandable in English. It also incorporated a lot of the style guide points. 
+   I don't have a shareable url to the solution, but the assignment spec can be found
+   here if you can imagine an amazing solution: 
+   https://web.stanford.edu/class/archive/cs/cs106b/cs106b.1262/assignments/4-backtracking-voting/
+
+5. I'm most eager to improve my ability to write code that is consice and easy for anyone
+   to understand. It can get pretty easy to write long, convoluted code, and I want to learn
+   the ways of thinking that get around this. I think more practice with different 
+   algorithms and thought processes will help with this. 

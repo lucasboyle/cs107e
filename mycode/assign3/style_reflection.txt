@@ -1,0 +1,85 @@
+Lucas Boyle
+CS 107E
+2/3/26
+
+File: style_reflection.txt
+----------
+
+1. Below is the code for my struct and the updated version of gpio_get_function. One thing that 
+   I'm still wondering is if this is the cleanest way to implement it, or if we should have some 
+   sort of array declared at the top of our code will predefined structs for each register. 
+
+typedef struct {
+    volatile unsigned int cfg0;
+    volatile unsigned int cfg1;
+    volatile unsigned int cfg2;
+    volatile unsigned int data_pad;         // DATA REGISTER IS OFFSET BY 4 BITS
+    volatile unsigned int data;
+    volatile unsigned int pull_pad[5];      // PULL REGISTER IS OFFSET BY 20 BITS
+    volatile unsigned int pull;
+} gpio_reg;
+
+
+// This function takes in a pin and returns the function of its cooresponding coniguration register
+unsigned int gpio_get_function(gpio_id_t pin) {
+    
+    // DETERINE THAT THE PIN IS VALID
+    if (gpio_id_is_valid(pin)) {
+
+        // DETERMINE DATA AT CONFIGURATION REGISTER
+        gpio_pin_t gpio = get_group_and_index(pin);
+
+        // CREATE REG STRUCT FOR GROUP
+        gpio_reg *reg = (gpio_reg *)(BASE_ADDRESS + (0x0030/4)*(gpio.group+1));
+        
+        // SHIFT INTO CORRECT REGISTER IF NEEDED
+        unsigned int cfg_num;
+        unsigned int pin_index = gpio.pin_index;
+        if (gpio.pin_index >= 16) {
+            cfg_num = 2;
+            pin_index -= 16;
+        } else if (gpio.pin_index >= 8) {
+            cfg_num = 1;
+            gpio.pin_index -= 8;
+        } else {
+            cfg_num = 0;
+        }
+
+        // GET CONFIG REGISTER
+        volatile unsigned int *config_reg = &reg->cfg0 + cfg_num;
+
+        // GET THE FUNCTION FROM THE CORRECT LOCATION IN THE DATA
+        return (*config_reg >> 4*gpio.pin_index) & 0xF;
+    }
+
+    // IF THE PIN IS INVALID, RETURN THE GPIO_INVALID_REQUEST
+    return GPIO_INVALID_REQUEST;
+}
+
+
+2. I represented the time by holding the minutes and seconds in separate variables
+   and then combining them to form a single number. One thing that I think this made
+   easy was figuring out the number to display. Since the timer displays MMSS, it 
+   is easy to do the conversion to this format. However, it would have been more
+   efficient to simply add subtract one from the seconds each iteration and convert
+   right before displaying so that only one variable would have to be holding the data,
+   rather than the three that I used. 
+
+
+3. b. We need to care that memset is only writing in the location that we give it 
+      because there could be sensitive information located directly before or after
+      the place in memory. For example, if we were developing the heap allocator, 
+      we do not want to modify any of the information surrounding the specific data
+      we are adding. 
+
+      // TEST SETTING MEMORY AND CHECKING CHANGE
+      char buf[25];
+      size_t bufsize = sizeof(buf);
+      memset(buf, 0x7e, bufsize);
+      for (int i = 0; i < bufsize; i++) {
+          assert(buf[i] == 0x7e);
+      }
+
+      // CHECK THAT MEMORY BEFORE AND AFTER BUFFER HAS NOT BEEN CHANGED
+      assert(*(buf - 1) != 0x7e);
+      assert(buf[bufsize+1] != 0x7e);

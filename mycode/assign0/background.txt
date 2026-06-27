@@ -1,0 +1,84 @@
+// File: background.txt
+
+1. 0x23 OR 0x4a ->  0010 0011 OR 0100 1010
+   0110 1011
+   Answer: 0x6b = 107
+
+   Shift 5 Left -> 1101 0110 0000
+   Answer: 0xd60 = 3424
+
+
+2. V = IR
+   3V = I * 1.5K
+   Answer: I = 2 mA
+
+
+3. An absolute path contains the entire path from the home of the file system. A relative path
+   is a path that starts from the current location. An absolute path will always work 
+   regardless of your location, while a relative path will only work if you are in the correct
+   location. The shorthand ~ means the home directory. The shorthand . refers to the current
+   folder. The shorthand .. refers to the parent folder. 
+
+
+4. Absolute Path: /Users/lucasboyle/cs107e_home/mycode/cs107e
+   
+   To quickly change to this path, I can call cd $CS107E.
+
+
+5. I will be using vim. I have configured git to use this editor. I am going to practice 
+   editing files and watch some videos about how to best use it.
+
+
+6. I will have one terminal open for the editor and one open for compiling and executing
+   code, as suggested. I found that I can quickly switch between the windows using the 
+   command-option-# shortcut. I'm also going to have splitscreen, splitting between the
+   terminal window and the CS 107e website. If it becomes more useful, I could also use a
+   monitor so I can view multiple terminals at the same time. 
+
+
+7. cd: The cd command navigates to a different directory, following an absolute or a relative
+       path. One useful option is that if you enter cd with no arguments, it navigates to 
+       the home directory. Example: cd ~/cs107e_home/mycode/assign0/
+
+   pwd: The pwd command outputs the absolute path to the current directory. 
+        Example: pwd
+
+   ls: The ls command lists the contents of a directory. When there are no arguments, 
+       it prints all of the contents of the current directory. You can also specify a 
+       path. Some flags you can add are -l which also prints out permissions, file
+       size, last modified date, and filename. Another flag is -a, which lists all 
+       files, even if they are hidden. Example: ls -al
+ 
+   cat: The cat command prints the contents of a file to the terminal. If you stack the 
+        filenames after each other, you can print the content of multiple files. 
+        Example: cat background.txt
+ 
+   mkdir: The mkdir command greates a new folder in the current path with a specified 
+          name. Example: mkdir NewFolder
+
+   rmdir: The rmdir command will delete an empty folder/directory. Example: rmdir NewFolder
+
+   touch: The touch command creates a new, empty file. If the file already exists, it will
+ 	  update the timestamp for the file. You can also create multiple files at the same
+	  time. Example: touch newFile1.txt
+ 
+   rm: The rm command permanantly deletes files. You can also delete a directory that is 
+       not empty using the -r flag. If there are manual prompts to delete that you want to 
+       bypass, you can also use the -f flag. Example: rm -r NewFolder
+  
+   echo: The echo command displays a string to the terminal screen. This could be a string
+	 in quotes or a variable. If you want to display a variable, you must put a $ before
+	 the name. If you want to write the string to a file instead, you can use > (overwrite)
+	 or >> (append). Example: echo $CS107E
+
+
+8. I will be using tab completion anytime I have a long path or command (it really is so 
+   much easier!). In terms of command line editing, I like using the ctrl-a and ctrl-e 
+   keys a lot, and I will practice being more efficient with the delete keys. Using the 
+   up arrow is really useful to get a previous command, and using ctrl-r makes it easy to 
+   search for a previous command and quickly call it. 
+
+
+9. I thought that the current version of the 107 Unix guide is easier to read/navigate.
+   (https://web.stanford.edu/class/archive/cs/cs107/cs107.1264/resources/unix.html)
+

@@ -1,0 +1,50 @@
+Lucas Boyle
+CS 107e
+2/8/26
+
+File: style_reflection.txt
+----------
+
+1. I looked through my code for printf.c and I do not believe that I repeat 
+   any code throughout the module. I make extensive use of the strlcat and 
+   memcopy functions I had created earlier, and I also created a pad function 
+   that would take out that chunk of repeated code as well. The way that I have 
+   my code written, each format specifier has a different case that has code 
+   specific to the format, it calls the pad function, and it adds it to the 
+   buffer. I made sure to use functions I already created like strlcat to get 
+   the updated length. 
+
+
+2. Yes, my printf handles the padding all in one unified code path in a helpler 
+   function I created. I wrote it this way because each format specifier essentially 
+   does padding the same way, so it would be very repeated. However, I need to 
+   change the way that this works. Currently, the function creates a new padded 
+   string on the stack within the helper funcion and returns a pointer to this
+   string. However, as soon as the function exits, this string is free to be 
+   overwritten, causing some issues. To rewrite the function, I am planning on 
+   passing in the actual buffer to the function so that it can write it directly 
+   instead of passing a pointer. 
+
+
+3. The stepwise, layered approach is most likely more readable and easier to debug 
+   when an issue innevitably arrises. Since a linear logic is used, it is very 
+   clear what section of code is doing in the program. With an all-in-one-pass 
+   method, the logic is likely streamlines to the point where it would be 
+   difficult to look back on and fully understand the thought process. Additionally, 
+   if a new feature needs to be added, it would be much more difficult for the 
+   highly optimized approached to be changed. Finally, the difference in runtime 
+   is negligable since they are both on the scale of O(n). If the difference in 
+   run time was O(n) and O(n^2), then it would probably be worth it to optimize. 
+
+
+4. a. If a client called strlen on an invalid pointer, it could either trigger a 
+      seg fault or it would loop for an unknown amount of time until a null 
+      terminator is reached, which could be never. This has clear dangers that we 
+      simply assume the use will account for. 
+
+   b. The function strnlen is safer because it will only look at the first maxlen 
+      characters in the string, even if a null terminator is not found. This will 
+      prevent the function from continously looping if the string is not formatted 
+      properly. However, this will not prevent a possibly seg fault which could 
+      occur if the pointer is invalid. But practically, we would assume that a 
+      valid pointer is passed in, so this practically fixes the issues. 

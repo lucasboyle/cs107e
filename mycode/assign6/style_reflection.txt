@@ -1,0 +1,54 @@
+Lucas Boyle
+CS 107e
+2/22/26
+
+File: style_reflection.txt
+----------
+
+1. In order to support a different keymap, you would simply need to adjust the array of
+   scancodes created in ps2_keys.c thanks to the decomposition. Assuming that the release
+   scancode is the same, this would result in a seemless transition. In order to support 
+   other modifiers, you would need to map another ascii value to that event. Assuming that 
+   there isn't a shortcut created for every single letter/number, this should not be too
+   hard to fit into, but it does require creating an addition case when interpreting the
+   character that is returned. That being said, if there is a world where every number 
+   and letter should get an alternate function when ctrl/alt/fn is pressed, the current
+   functionality would not be suitable to fit every combination due to the limiation of the 
+   size of a char. 
+
+
+2. One pattern I found interesting was the Flyweight pattern, which focuses on reducing 
+   memory usage by separating shared data from instance-specific data. The key idea is that 
+   when you have a large number of similar objects, much of their state is often identical 
+   and does not need to be duplicated. Instead of storing that shared information repeatedly, 
+   you create a single object to represent the common (intrinsic) state and have each 
+   individual instance store only its unique (extrinsic) state as a reference. For example, 
+   in a tile-based game with grass, hills, and rivers spread across a massive grid, it would 
+   be inefficient to create a full Terrain object for every tile. Since all grass tiles share 
+   the same movement cost, water property, and texture, you can create one Grass object and 
+   have every grass tile reference it. This significantly reduces memory usage while keeping 
+   the code clean and object-oriented.
+
+   Essentially, you could create one grass, hill, and river object and pass pointers to each
+   of them every time you want to represent what is at a tile. When you want to access what
+   is at the tile, you can dereference the pointer and return it to the user. From there, you
+   could call a further method on this dereferences value. This is much more memory efficient
+   than storing a separate object for each tile. 
+
+
+3. To use a function pointer for this, I could essentially create an array that holds all 
+   of the shortcuts that bind creates and the associated function pointer that should be 
+   called when the shortcut is ran. This would basically allow us to create a wrapper 
+   funtion that automatically calls the real function by just calling upon the function
+   pointer, which can easily be accessed the first time that the function is called in bind.
+
+
+4. a. Uploaded as FSM.png.
+
+   b. Based on my FSM, it is clear that you need a solid way to go back to the function 
+      start if any error occurs. I probably would have emphasized this point more in my 
+      initial ideation instead of waiting to the end to figure out how I would account for
+      this important step. Additionally, I think this FSM would have acually made it easier
+      to visualize all of the steps involved and understand the control flow and error 
+      checking that constantly occurs. I think my ultimate implementations would have 
+      been similar, but ut would have been a smoother process with my diagram. 
